@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>27</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Bebas+Neue&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+```
+:root {
+  --white: #ffffff;
+  --gold:  #FFD700;
+  --bg:    #000000;
+}
+
+body {
+  background: var(--bg);
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  font-family: 'Share Tech Mono', monospace;
+}
+
+/* scanlines */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px, transparent 3px,
+    rgba(255,255,255,.016) 3px, rgba(255,255,255,.016) 4px
+  );
+  pointer-events: none;
+  z-index: 20;
+}
+
+/* ── big ghost "27" ── */
+#accent {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(6rem, 28vw, 18rem);
+  line-height: .85;
+  user-select: none;
+  pointer-events: none;
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  opacity: .055;
+  color: var(--white);
+  letter-spacing: -.02em;
+}
+body.day27 #accent {
+  color: var(--gold);
+  opacity: .07;
+}
+body.rainbow #accent {
+  opacity: .09;
+  background: linear-gradient(90deg,#f00,#ff7700,#ff0,#0f0,#00bfff,#8b00ff,#f00);
+  background-size: 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: rainbowShift 4s linear infinite;
+}
+
+/* ── wrapper ── */
+#wrapper {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: clamp(1.5rem, 5vw, 4rem);
+  width: 100%;
+  max-width: 860px;
+}
+
+/* ══════════════════════════════════════
+   COUNTDOWN BLOCK  (non-27 days)
+══════════════════════════════════════ */
+#countdown {
+  flex-direction: column;
+  gap: clamp(.3rem, 1.2vw, .75rem);
+  display: flex;
+}
+
+#cd-label {
+  font-size: clamp(.65rem, 2vw, 1.1rem);
+  letter-spacing: .38em;
+  text-transform: uppercase;
+  color: var(--white);
+  opacity: .35;
+  margin-bottom: clamp(.4rem, 1.5vw, 1rem);
+}
+
+.cd-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: clamp(.35rem, 1.2vw, .9rem);
+}
+
+.cd-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.2rem, 8.5vw, 5.5rem);
+  line-height: 1;
+  color: var(--white);
+  min-width: clamp(2.2rem, 8.5vw, 5.5rem);
+  text-align: right;
+}
+
+.cd-unit {
+  font-size: clamp(.55rem, 1.8vw, 1rem);
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--white);
+  opacity: .4;
+  width: clamp(3rem, 9vw, 6rem);
+  text-align: left;
+  padding-left: .3em;
+}
+
+#cd-time {
+  font-size: clamp(1.3rem, 5vw, 3.2rem);
+  letter-spacing: .1em;
+  color: var(--white);
+  opacity: .6;
+  margin-top: clamp(.4rem, 1.5vw, .9rem);
+}
+
+@keyframes blink { 50% { opacity: 0; } }
+.colon { animation: blink 1s step-start infinite; display: inline-block; }
+
+/* ══════════════════════════════════════
+   FELIZ BLOCK  (any 27)
+══════════════════════════════════════ */
+#feliz {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(.45rem, 1.8vw, 1.1rem);
+}
+
+/* colour utility classes */
+.gold-text {
+  color: var(--gold) !important;
+  -webkit-text-fill-color: var(--gold) !important;
+}
+
+@keyframes rainbowShift {
+  from { background-position: 0% center; }
+  to   { background-position: 300% center; }
+}
+
+.rainbow-text {
+  background: linear-gradient(
+    90deg,
+    #ff0000, #ff7700, #ffff00,
+    #00ff00, #00bfff, #8b00ff, #ff0000
+  ) !important;
+  background-size: 300% !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  animation: rainbowShift 4s linear infinite !important;
+}
+
+#feliz-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem, 12vw, 7.5rem);
+  line-height: 1;
+  letter-spacing: .06em;
+}
+
+#feliz-sub {
+  font-size: clamp(.65rem, 2.2vw, 1.15rem);
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  margin-bottom: clamp(.2rem, .8vw, .5rem);
+}
+
+.f-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: clamp(.35rem, 1.2vw, .9rem);
+}
+
+.f-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.6rem, 10vw, 6.2rem);
+  line-height: 1;
+  min-width: clamp(2.4rem, 9vw, 5.8rem);
+  text-align: right;
+}
+
+body.day27 .f-num { text-shadow: 0 0 45px rgba(255,183,0,.5); }
+
+.f-unit {
+  font-size: clamp(.55rem, 1.8vw, 1rem);
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  width: clamp(3rem, 9vw, 6rem);
+  text-align: left;
+  padding-left: .3em;
+}
+
+#feliz-since {
+  font-size: clamp(.5rem, 1.6vw, .85rem);
+  letter-spacing: .35em;
+  text-transform: uppercase;
+  margin-top: clamp(.15rem, .8vw, .4rem);
+}
+
+/* ── body state animations ── */
+@keyframes goldPulse {
+  0%,100% { box-shadow: inset 0 0 140px rgba(255,183,0,.04); }
+  50%      { box-shadow: inset 0 0 240px rgba(255,183,0,.11); }
+}
+body.day27 { animation: goldPulse 3s ease-in-out infinite; }
+
+@keyframes rainbowBg {
+  0%   { background-color: #000; }
+  16%  { background-color: #080000; }
+  33%  { background-color: #020800; }
+  50%  { background-color: #000008; }
+  66%  { background-color: #040008; }
+  83%  { background-color: #080400; }
+  100% { background-color: #000; }
+}
+body.rainbow { animation: rainbowBg 6s linear infinite; }
+```
+
+  </style>
+</head>
+<body>
+
+  <div id="accent">27</div>
+
+  <div id="wrapper">
+
+```
+<!-- COUNTDOWN (non-27 days) -->
+<div id="countdown">
+  <div id="cd-label">Próximo día 27</div>
+  <div class="cd-row"><span class="cd-num" id="c-y">0</span><span class="cd-unit">años</span></div>
+  <div class="cd-row"><span class="cd-num" id="c-mo">0</span><span class="cd-unit">meses</span></div>
+  <div class="cd-row"><span class="cd-num" id="c-w">0</span><span class="cd-unit">semanas</span></div>
+  <div class="cd-row"><span class="cd-num" id="c-d">0</span><span class="cd-unit">días</span></div>
+  <div id="cd-time">
+    <span id="c-h">00</span><span class="colon">:</span><span id="c-m">00</span><span class="colon">:</span><span id="c-s">00</span>
+  </div>
+</div>
+
+<!-- FELIZ (any 27) -->
+<div id="feliz">
+  <div id="feliz-title">🥭 Feliz</div>
+  <div id="feliz-sub">desde el 27 · 08 · 2024</div>
+  <div class="f-row">
+    <span class="f-num" id="f-y">0</span>
+    <span class="f-unit" id="fu-y">años</span>
+  </div>
+  <div class="f-row">
+    <span class="f-num" id="f-mo">0</span>
+    <span class="f-unit" id="fu-mo">meses</span>
+  </div>
+  <div class="f-row">
+    <span class="f-num" id="f-d">0</span>
+    <span class="f-unit" id="fu-d">días</span>
+  </div>
+  <div id="feliz-since">27 / 08 / 2024</div>
+</div>
+```
+
+  </div>
+
+  <script>
+    function mexicoNow() {
+      return new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Mexico_City' }));
+    }
+
+    function nextDay27(now) {
+      const d = new Date(now);
+      d.setHours(0, 0, 0, 0);
+      if (now.getDate() >= 27) {
+        d.setMonth(d.getMonth() + 1, 27);
+      } else {
+        d.setDate(27);
+      }
+      return d;
+    }
+
+    function countdownUnits(now, target) {
+      const totalMs = target - now;
+      if (totalMs <= 0) return { y:0, mo:0, w:0, d:0, h:0, m:0, s:0 };
+
+      let y  = target.getFullYear() - now.getFullYear();
+      let mo = target.getMonth()    - now.getMonth();
+      if (mo < 0) { y--; mo += 12; }
+
+      const tmp = new Date(now);
+      tmp.setFullYear(tmp.getFullYear() + y);
+      tmp.setMonth(tmp.getMonth() + mo);
+
+      let remMs = target - tmp;
+      if (remMs < 0) { mo--; if (mo < 0) { y--; mo = 11; } remMs += 30 * 86400000; }
+
+      const rS = Math.floor(remMs / 1000);
+      const s  = rS % 60;
+      const rM = Math.floor(rS / 60);
+      const m  = rM % 60;
+      const rH = Math.floor(rM / 60);
+      const h  = rH % 24;
+      const rD = Math.floor(rH / 24);
+      const w  = Math.floor(rD / 7);
+      const d  = rD % 7;
+
+      return { y, mo, w, d, h, m, s };
+    }
+
+    const REF = new Date(2024, 7, 27);
+
+    function elapsed(now) {
+      let y  = now.getFullYear() - REF.getFullYear();
+      let mo = now.getMonth()    - REF.getMonth();
+      let d  = now.getDate()     - REF.getDate();
+      if (d  < 0) { mo--; d += new Date(now.getFullYear(), now.getMonth(), 0).getDate(); }
+      if (mo < 0) { y--; mo += 12; }
+      return { y, mo, d };
+    }
+
+    // DOM refs
+    const $body = document.body;
+    const cdEl  = document.getElementById('countdown');
+    const fzEl  = document.getElementById('feliz');
+
+    const felizEls = [
+      document.getElementById('feliz-title'),
+      document.getElementById('feliz-sub'),
+      document.getElementById('feliz-since'),
+      document.getElementById('f-y'),
+      document.getElementById('f-mo'),
+      document.getElementById('f-d'),
+      document.getElementById('fu-y'),
+      document.getElementById('fu-mo'),
+      document.getElementById('fu-d'),
+    ];
+
+    const cY = document.getElementById('c-y');
+    const cMo= document.getElementById('c-mo');
+    const cW = document.getElementById('c-w');
+    const cD = document.getElementById('c-d');
+    const cH = document.getElementById('c-h');
+    const cM = document.getElementById('c-m');
+    const cS = document.getElementById('c-s');
+
+    const pad = n => String(n).padStart(2, '0');
+
+    function applyFelizColor(cls) {
+      felizEls.forEach(el => { el.className = cls; });
+    }
+
+    function tick() {
+      const now   = mexicoNow();
+      const day   = now.getDate();
+      const month = now.getMonth(); // 7 = August
+
+      if (day === 27) {
+        cdEl.style.display = 'none';
+        fzEl.style.display = 'flex';
+
+        const e = elapsed(now);
+        document.getElementById('f-y').textContent  = e.y;
+        document.getElementById('f-mo').textContent = e.mo;
+        document.getElementById('f-d').textContent  = e.d;
+
+        if (month === 7) {
+          // 27 de agosto → arcoíris
+          $body.classList.remove('day27');
+          $body.classList.add('rainbow');
+          applyFelizColor('rainbow-text');
+        } else {
+          // Cualquier otro 27 → dorado
+          $body.classList.remove('rainbow');
+          $body.classList.add('day27');
+          applyFelizColor('gold-text');
+        }
+
+      } else {
+        // Día normal → cuenta regresiva en blanco
+        $body.classList.remove('day27', 'rainbow');
+        cdEl.style.display = 'flex';
+        fzEl.style.display = 'none';
+
+        const target = nextDay27(now);
+        const u = countdownUnits(now, target);
+
+        cY.textContent  = u.y;
+        cMo.textContent = u.mo;
+        cW.textContent  = u.w;
+        cD.textContent  = u.d;
+        cH.textContent  = pad(u.h);
+        cM.textContent  = pad(u.m);
+        cS.textContent  = pad(u.s);
+      }
+    }
+
+    tick();
+    setInterval(tick, 1000);
+  </script>
+
+</body>
+</html>
