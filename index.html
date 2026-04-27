@@ -268,10 +268,6 @@ body.rainbow { animation: rainbowBg 6s linear infinite; }
     <span class="f-num" id="f-mo">0</span>
     <span class="f-unit" id="fu-mo">meses</span>
   </div>
-  <div class="f-row">
-    <span class="f-num" id="f-d">0</span>
-    <span class="f-unit" id="fu-d">días</span>
-  </div>
   <div id="feliz-since">27 / 08 / 2024</div>
 </div>
 ```
@@ -344,10 +340,8 @@ body.rainbow { animation: rainbowBg 6s linear infinite; }
       document.getElementById('feliz-since'),
       document.getElementById('f-y'),
       document.getElementById('f-mo'),
-      document.getElementById('f-d'),
       document.getElementById('fu-y'),
       document.getElementById('fu-mo'),
-      document.getElementById('fu-d'),
     ];
 
     const cY = document.getElementById('c-y');
@@ -376,7 +370,6 @@ body.rainbow { animation: rainbowBg 6s linear infinite; }
         const e = elapsed(now);
         document.getElementById('f-y').textContent  = e.y;
         document.getElementById('f-mo').textContent = e.mo;
-        document.getElementById('f-d').textContent  = e.d;
 
         if (month === 7) {
           // 27 de agosto → arcoíris
